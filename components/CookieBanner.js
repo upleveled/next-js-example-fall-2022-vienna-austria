@@ -17,13 +17,13 @@ const bannerStyles = (isOpen) => css`
 `;
 
 export default function CookieBanner() {
-  const [isBannerOpen, setIsBannerOpen] = useState(true);
+  const [isBannerOpen, setIsBannerOpen] = useState(false);
 
   // This is only happening in the browser
   useEffect(() => {
     const initialValue = getLocalStorage('isBannerOpen');
-    if (initialValue !== null) {
-      setIsBannerOpen(initialValue);
+    if (initialValue === null) {
+      setIsBannerOpen(true);
     }
   }, []);
 
