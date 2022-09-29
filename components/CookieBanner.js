@@ -4,15 +4,18 @@ import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 // isOpen is a Boolean
 const bannerStyles = (isOpen) => css`
-  padding: 5px;
-  transition: all 0.5s ease-in-out;
-  height: 20px;
+  padding: 10px;
+  z-index: 1;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #ddd;
 
   ${!isOpen &&
   css`
-    height: 0;
-    padding: 0;
-    overflow: hidden;
+    display: none;
   `};
 `;
 
