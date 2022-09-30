@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { animals } from '../../database/animals';
+import { getAnimals } from '../../database/animals';
 
 const animalStyles = css`
   border-radius: 15px;
@@ -32,13 +32,13 @@ export default function Animals(props) {
         return (
           <div key={`animal-${animal.id}`} css={animalStyles}>
             <h2>
-              <Link href={`/animals/${animal.id}`}>{animal.name}</Link>
+              <Link href={`/animals/${animal.id}`}>{animal.firstName}</Link>
             </h2>
 
             <Link href={`/animals/${animal.id}`}>
               <a>
                 <Image
-                  src={`/${animal.id}-${animal.name.toLowerCase()}.jpeg`}
+                  src={`/${animal.id}-${animal.firstName.toLowerCase()}.jpeg`}
                   alt=""
                   width="150"
                   height="150"
@@ -62,7 +62,8 @@ export default function Animals(props) {
 //
 // Note: this function can only be exported
 // from files within pages/
-export function getServerSideProps() {
+export async function getServerSideProps() {
+  const animals = await getAnimals();
   return {
     // Anything that you write in this props object
     // will become the props that are passed to

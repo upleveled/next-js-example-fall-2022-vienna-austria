@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { animals } from '../../database/animals';
+import { getAnimalById } from '../../database/animals';
 
 const animalStyles = css`
   border-radius: 15px;
@@ -36,16 +36,16 @@ export default function Animal(props) {
     <div css={animalStyles}>
       <Head>
         <title>
-          {props.animal.name}, the {props.animal.type}
+          {props.animal.firstName}, the {props.animal.type}
         </title>
         <meta
           name="description"
-          content={`${props.animal.name} is a ${props.animal.type} with a ${props.animal.accessory}`}
+          content={`${props.animal.firstName} is a ${props.animal.type} with a ${props.animal.accessory}`}
         />
       </Head>
-      <h2>{props.animal.name}</h2>
+      <h2>{props.animal.firstName}</h2>
       <Image
-        src={`/${props.animal.id}-${props.animal.name.toLowerCase()}.jpeg`}
+        src={`/${props.animal.id}-${props.animal.firstName.toLowerCase()}.jpeg`}
         alt=""
         width="400"
         height="400"
@@ -57,7 +57,7 @@ export default function Animal(props) {
   );
 }
 
-export function getServerSideProps(context) {
+export async function getServerSideProps(context) {
   // Retrieve the animal ID from the URL
   const animalId = parseInt(context.query.animalId);
 
@@ -68,9 +68,10 @@ export function getServerSideProps(context) {
   // will run every time. Using a database
   // like PostgreSQL will allow you to do this
   // in a nicer way.
-  const foundAnimal = animals.find((animal) => {
-    return animal.id === animalId;
-  });
+  // const foundAnimal = animals.find((animal) => {
+  //   return animal.id === animalId;
+  // });
+  const foundAnimal = await getAnimalById(animalId);
 
   if (typeof foundAnimal === 'undefined') {
     context.res.statusCode = 404;
