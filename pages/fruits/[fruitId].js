@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import Head from 'next/head';
 import Link from 'next/link';
 import { fruitsDatabase } from '../../database/fruits';
