@@ -3951,9 +3951,10 @@ postcss@8.4.14:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-postgres@^3.3.0, "postgres@https://github.com/porsager/postgres":
-  version "3.2.4"
-  resolved "https://github.com/porsager/postgres#57246a3f818a3180f7b5c72979d4eabbbe4dd703"
+postgres@3.3.0, postgres@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/postgres/-/postgres-3.3.0.tgz#82c9cbff68d3f68ad0e0d337fd1f96906addd105"
+  integrity sha512-6bZk3JK1iUP+bEqWzKJh7z3zw1bWHPolzzwj1zu0KBnh2WWsrr48ic8Cy064TU/08poxC0gaZgwcoxr0WDCiCw==
 
 prebuild-install@^7.1.1:
   version "7.1.1"
