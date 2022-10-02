@@ -9,13 +9,11 @@ import { sql } from './connect';
 //   { id: 5, name: 'Kaaaarl', type: 'Llama', accessory: 'Toque' },
 // ];
 
-type Nullable<T> = T | null;
-
 export type Animal = {
   id: number;
   firstName: string;
   type: string;
-  accessory: Nullable<string>;
+  accessory: string | null;
 };
 
 // Get all animals
