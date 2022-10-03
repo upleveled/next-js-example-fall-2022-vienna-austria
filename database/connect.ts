@@ -16,11 +16,7 @@ function connectOneTimeToDatabase() {
   if (!globalThis.postgresSqlClient) {
     globalThis.postgresSqlClient = postgres({
       transform: {
-        // Convert all column names to camelCase
-        column: {
-          to: postgres.fromCamel,
-          from: postgres.toCamel,
-        },
+        ...postgres.camel,
 
         // Future version of postgres will support this
         // type of conversion setting

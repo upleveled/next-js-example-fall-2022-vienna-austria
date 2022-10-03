@@ -15,11 +15,11 @@ CREATE TABLE animals(
 INSERT INTO animals
   (first_name, type, accessory)
 VALUES
-  ( 'Ralph', 'Tiger', 'Gold chain' ),
-  ( 'Evelina', 'Hedgehog', 'Comb' ),
-  ( 'Otto', 'Otter', 'Stone' ),
-  ( 'Mayo', 'Dog', 'Sweater' ),
-  ( 'Kaaaarl', 'Llama', 'Toque' );
+  ('Ralph', 'Tiger', 'Gold chain'),
+  ('Evelina', 'Hedgehog', 'Comb'),
+  ('Otto', 'Otter', 'Stone'),
+  ('Mayo', 'Dog', 'Sweater'),
+  ('Kaaaarl', 'Llama', 'Toque');
 
 
 -- Read some animals (R in CRUD - Read)

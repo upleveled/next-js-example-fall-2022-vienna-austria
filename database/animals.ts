@@ -20,7 +20,7 @@ export type Animal = {
 export async function getAnimals() {
   const animals = await sql<Animal[]>`
     SELECT * FROM animals;
-`;
+  `;
   return animals;
 }
 
