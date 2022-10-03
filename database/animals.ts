@@ -16,6 +16,30 @@ export type Animal = {
   accessory: string | null;
 };
 
+export type Food = {
+  id: number;
+  name: string;
+  type: string;
+};
+
+export type AnimalWithFoods = {
+  animalId: number;
+  animalFirstName: string;
+  animalType: string;
+  animalAccessory: string | null;
+  foodName: string;
+  foodType: string;
+};
+
+export type AnimalWithFoodsLeftJoin = {
+  animalId: number;
+  animalFirstName: string;
+  animalType: string;
+  animalAccessory: string | null;
+  foodName: string | null;
+  foodType: string | null;
+};
+
 // Get all animals
 export async function getAnimals() {
   const animals = await sql<Animal[]>`
@@ -35,6 +59,53 @@ export async function getAnimalById(id: number) {
       id = ${id}
   `;
   return animal;
+}
+
+export async function getAnimalByIdWithFoods(animalId: number) {
+  const animalWithFoods = await sql<AnimalWithFoods[]>`
+    SELECT
+      animals.id AS animal_id,
+      animals.first_name AS animal_first_name,
+      animals.type AS animal_type,
+      animals.accessory AS animal_accessory,
+      foods.name AS food_name,
+      foods.type AS food_type
+    FROM
+      animals
+    INNER JOIN
+      animals_foods ON animals.id = animals_foods.animal_id
+    INNER JOIN
+      foods ON animals_foods.food_id = foods.id
+    WHERE
+      animals.id = ${animalId}
+  `;
+
+  return animalWithFoods;
+}
+
+// In case you still want the animal information
+// when the animal is not related to any foods,
+// use the LEFT JOIN instead of INNER JOIN
+export async function getAnimalByIdWithFoodsLeftJoin(animalId: number) {
+  const animalWithFoods = await sql<AnimalWithFoodsLeftJoin[]>`
+    SELECT
+      animals.id AS animal_id,
+      animals.first_name AS animal_first_name,
+      animals.type AS animal_type,
+      animals.accessory AS animal_accessory,
+      foods.name AS food_name,
+      foods.type AS food_type
+    FROM
+      animals
+    LEFT JOIN
+      animals_foods ON animals.id = animals_foods.animal_id
+    LEFT JOIN
+      foods ON animals_foods.food_id = foods.id
+    WHERE
+      animals.id = ${animalId}
+  `;
+
+  return animalWithFoods;
 }
 
 export async function createAnimal(
