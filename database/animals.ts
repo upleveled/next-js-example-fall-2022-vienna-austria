@@ -27,8 +27,58 @@ export async function getAnimals() {
 // Get a single animal by id
 export async function getAnimalById(id: number) {
   const [animal] = await sql<Animal[]>`
-    SELECT * FROM animals WHERE id = ${id}
+    SELECT
+      *
+    FROM
+      animals
+    WHERE
+      id = ${id}
   `;
+  return animal;
+}
 
+export async function createAnimal(
+  firstName: string,
+  type: string,
+  accessory: string,
+) {
+  const [animal] = await sql<Animal[]>`
+    INSERT INTO animals
+      (first_name, type, accessory)
+    VALUES
+      (${firstName}, ${type}, ${accessory})
+    RETURNING *
+  `;
+  return animal;
+}
+
+export async function updateAnimalById(
+  id: number,
+  firstName: string,
+  type: string,
+  accessory: string,
+) {
+  const [animal] = await sql<Animal[]>`
+    UPDATE
+      animals
+    SET
+      first_name = ${firstName},
+      type = ${type},
+      accessory = ${accessory}
+    WHERE
+      id = ${id}
+    RETURNING *
+  `;
+  return animal;
+}
+
+export async function deleteAnimalById(id: number) {
+  const [animal] = await sql<Animal[]>`
+    DELETE FROM
+      animals
+    WHERE
+      id = ${id}
+    RETURNING *
+  `;
   return animal;
 }
