@@ -1385,10 +1385,10 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
 
-"@ts-safeql/eslint-plugin@0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@ts-safeql/eslint-plugin/-/eslint-plugin-0.0.15.tgz#808e6709b30bf03466fce2772344c40068c90194"
-  integrity sha512-5ttWwucN5ynh9W1JJCPm3IkmDf52PKci2YU0/tBdjSKaFbbWUAHLguVmfS2qL46gJ6+GPY9uIn7/lukJU9lb7A==
+"@ts-safeql/eslint-plugin@0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@ts-safeql/eslint-plugin/-/eslint-plugin-0.0.16.tgz#75d325a33f38513987dae30925513dbe2df56000"
+  integrity sha512-DaWqOUm5EQupu04UvyHLANEHGgbgQ7+8WbpDEKHl3m499cXnUmExMUngbV3TxB8B8eHlTM5CqWBQKRGyaK9RxQ==
   dependencies:
     "@ts-safeql/generate" "0.0.6"
     "@ts-safeql/shared" "0.0.5"
