@@ -14,6 +14,14 @@ export function getParsedCookie(key) {
   }
 }
 
+export function stringifyCookieValue(value) {
+  return JSON.stringify(value);
+}
+
+export function deleteCookie(key) {
+  Cookies.remove(key);
+}
+
 export function setStringifiedCookie(key, value) {
   Cookies.set(key, JSON.stringify(value));
 }

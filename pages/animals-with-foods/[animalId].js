@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAnimalByIdWithFoodsLeftJoin } from '../../database/animals';
+import { getAnimalsWithFoods } from '../../utils/dataStructure';
 
 const animalStyles = css`
   border-radius: 15px;
@@ -78,22 +79,9 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const animal = {
-    animalId: animalWithFoods[0].animalId,
-    animalFirstName: animalWithFoods[0].animalFirstName,
-    animalType: animalWithFoods[0].animalType,
-    animalAccessory: animalWithFoods[0].animalAccessory,
-    foods: animalWithFoods.map((animalWithFood) => {
-      return {
-        name: animalWithFood.foodName,
-        type: animalWithFood.foodType,
-      };
-    }),
-  };
-
   return {
     props: {
-      animal: animal,
+      animal: getAnimalsWithFoods(animalWithFoods),
     },
   };
 }
