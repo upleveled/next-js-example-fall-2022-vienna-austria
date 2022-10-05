@@ -44,4 +44,4 @@ jobs:
         if: failure()
         with:
           name: playwright-screenshots-videos
-          path: test-results/
+          path: playwright/test-results/
