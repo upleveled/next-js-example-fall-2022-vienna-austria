@@ -25,7 +25,7 @@ test('navigation test', async ({ page }) => {
   await page.locator('a:has-text("Fruits")').click();
   await expect(page).toHaveURL('http://localhost:3000/fruits');
 
-  await expect(page.locator('[data-test-id^="fruit-"]')).toHaveCount(2);
+  await expect(page.locator('[data-test-id^="fruit-"]')).toHaveCount(3);
   await expect(page.locator('[data-test-id^="fruit-"] >> h2')).toHaveText([
     'Papaya',
     'Mango',
