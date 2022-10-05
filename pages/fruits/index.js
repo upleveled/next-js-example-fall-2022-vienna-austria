@@ -12,7 +12,7 @@ export default function Fruits(props) {
 
       {props.fruits.map((fruit) => {
         return (
-          <div key={`fruit-div-${fruit.id}`}>
+          <div data-test-id={`fruit-${fruit.id}`} key={`fruit-div-${fruit.id}`}>
             <h2>
               <Link href={`/fruits/${fruit.id}`}>
                 <a>{fruit.name}</a>

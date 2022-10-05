@@ -10,7 +10,7 @@ export default function Home() {
         <meta name="description" content="Overview of the animals" />
       </Head>
 
-      <div>Home</div>
+      <h1>Home</h1>
 
       {/*
         The Next.js Image component will perform

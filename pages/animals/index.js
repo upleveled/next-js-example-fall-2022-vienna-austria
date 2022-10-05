@@ -30,7 +30,11 @@ export default function Animals(props) {
 
       {props.animals.map((animal) => {
         return (
-          <div key={`animal-${animal.id}`} css={animalStyles}>
+          <div
+            data-test-id={`animal-type-${animal.type}`}
+            key={`animal-${animal.id}`}
+            css={animalStyles}
+          >
             <h2>
               <Link href={`/animals/${animal.id}`}>{animal.firstName}</Link>
             </h2>
