@@ -1,8 +1,9 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getAnimals } from '../../database/animals';
+import { Animal, getAnimals } from '../../database/animals';
 
 const animalStyles = css`
   border-radius: 15px;
@@ -18,7 +19,12 @@ const animalStyles = css`
   }
 `;
 
-export default function Animals(props) {
+type Props = {
+  animals: Animal[];
+  // abc: number;
+};
+
+export default function Animals(props: Props) {
   return (
     <>
       <Head>
@@ -66,7 +72,9 @@ export default function Animals(props) {
 //
 // Note: this function can only be exported
 // from files within pages/
-export async function getServerSideProps() {
+export async function getServerSideProps(): Promise<
+  GetServerSidePropsResult<Props>
+> {
   const animals = await getAnimals();
   return {
     // Anything that you write in this props object
@@ -76,7 +84,7 @@ export async function getServerSideProps() {
       // First prop, containing all animals
       animals: animals,
       // Second prop, example
-      abc: 123,
+      // abc: 123,
     },
   };
 }

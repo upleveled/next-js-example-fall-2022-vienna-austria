@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getAnimalById } from '../../database/animals';
+import { Animal, getAnimalById } from '../../database/animals';
+import { parseIntFromContextQuery } from '../../utils/contextQuery';
 
 const animalStyles = css`
   border-radius: 15px;
@@ -18,8 +20,16 @@ const animalStyles = css`
   }
 `;
 
-export default function Animal(props) {
-  if (props.error) {
+type Props =
+  | {
+      animal: Animal;
+    }
+  | {
+      error: string;
+    };
+
+export default function SingleAnimal(props: Props) {
+  if ('error' in props) {
     return (
       <div>
         <Head>
@@ -57,9 +67,20 @@ export default function Animal(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<Props>> {
   // Retrieve the animal ID from the URL
-  const animalId = parseInt(context.query.animalId);
+  const animalId = parseIntFromContextQuery(context.query.animalId);
+
+  if (typeof animalId === 'undefined') {
+    context.res.statusCode = 404;
+    return {
+      props: {
+        error: 'Animal not found',
+      },
+    };
+  }
 
   // Finding the animal
   //

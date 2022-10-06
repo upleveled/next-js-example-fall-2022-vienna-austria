@@ -1,3 +1,9 @@
+export type Fruit = {
+  id: string;
+  name: string;
+  icon: string;
+};
+
 export const fruitsDatabase = [
   {
     id: '1',

@@ -1,10 +1,19 @@
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { fruitsDatabase } from '../../database/fruits';
+import { Fruit, fruitsDatabase } from '../../database/fruits';
 import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 
-export default function Fruit(props) {
-  if (props.error) {
+type Props =
+  | {
+      error: string;
+    }
+  | {
+      singleFruit: Fruit;
+    };
+
+export default function SingleFruit(props: Props) {
+  if ('error' in props) {
     return (
       <div>
         <Head>
@@ -94,8 +103,10 @@ export default function Fruit(props) {
   );
 }
 
-export function getServerSideProps(context) {
-  const fruitId = context.params.fruitId;
+export function getServerSideProps(
+  context: GetServerSidePropsContext,
+): GetServerSidePropsResult<Props> {
+  const fruitId = context.query.fruitId;
 
   const fruits = fruitsDatabase;
 
@@ -112,5 +123,9 @@ export function getServerSideProps(context) {
     };
   }
 
-  return { props: { singleFruit: singleFruit } };
+  return {
+    props: {
+      singleFruit: singleFruit,
+    },
+  };
 }

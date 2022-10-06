@@ -43,7 +43,7 @@ export type AnimalWithFoodsLeftJoin = {
 // Get all animals
 export async function getAnimals() {
   const animals = await sql<Animal[]>`
-    SELECT * FROM animals;
+    SELECT * FROM animals
   `;
   return animals;
 }
@@ -60,6 +60,21 @@ export async function getAnimalById(id: number) {
   `;
   return animal;
 }
+
+// Alternative method: accept id of undefined
+// // Get a single animal by id
+// export async function getAnimalById(id: number | undefined) {
+//   if (!id) return undefined;
+//   const [animal] = await sql<Animal[]>`
+//     SELECT
+//       *
+//     FROM
+//       animals
+//     WHERE
+//       id = ${id}
+//   `;
+//   return animal;
+// }
 
 export async function getAnimalByIdWithFoods(animalId: number) {
   const animalWithFoods = await sql<AnimalWithFoods[]>`

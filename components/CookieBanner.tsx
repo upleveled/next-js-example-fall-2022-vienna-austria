@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 // isOpen is a Boolean
-const bannerStyles = (isOpen) => css`
+const bannerStyles = (isOpen: boolean | undefined) => css`
   padding: 10px;
   z-index: 1;
   position: fixed;
@@ -20,7 +20,7 @@ const bannerStyles = (isOpen) => css`
 `;
 
 export default function CookieBanner() {
-  const [isBannerOpen, setIsBannerOpen] = useState(false);
+  const [isBannerOpen, setIsBannerOpen] = useState<boolean>();
 
   // This is only happening in the browser
   useEffect(() => {

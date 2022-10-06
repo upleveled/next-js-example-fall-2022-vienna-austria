@@ -28,6 +28,7 @@
     "@ts-safeql/eslint-plugin": "0.0.16",
     "@types/dotenv-safe": "^8.1.2",
     "@types/jest": "^29.1.1",
+    "@types/js-cookie": "^3.0.2",
     "@types/node": "18.7.23",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
