@@ -68,3 +68,15 @@ psql -U <user name> <database name>
 ```bash
 sudo -u <user name> psql -U <user name> <database name>
 ```
+
+## API Design For Animals
+
+/api/
+
+/api/animals/
+GET
+POST
+/api/animals/:ID
+GET
+PUT
+DELETE
