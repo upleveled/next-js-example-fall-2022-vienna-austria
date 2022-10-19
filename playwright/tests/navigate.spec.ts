@@ -7,7 +7,7 @@ test('navigation test', async ({ page }) => {
 
   await expect(
     page.locator(
-      `img[alt="Zebra with meme sunglasses saying \'u wot m8\' with a elftroll in the foreground"] >> nth=0`,
+      `img[alt="Zebra with meme sunglasses saying 'u wot m8' with a elftroll in the foreground"] >> nth=0`,
     ),
   ).toBeVisible();
 
