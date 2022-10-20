@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 # Set an environmental variable
 ENV NODE_ENV production
-ENV FLY_IO_BUILD true
+ENV FLY_IO true
 RUN yarn install --frozen-lockfile
 RUN yarn build
 
@@ -32,6 +32,7 @@ COPY --from=builder /app/scripts ./scripts
 RUN chmod +x /app/scripts/fly-io-start.sh
 
 ENV NODE_ENV production
+ENV FLY_IO true
 ENV PORT 8080
 
 CMD ["./scripts/fly-io-start.sh"]
