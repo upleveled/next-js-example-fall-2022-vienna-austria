@@ -6,13 +6,13 @@ const animals = [
   { first_name: 'Kaaaarl', type: 'Llama', accessory: 'Toque' },
 ];
 
-exports.up = async (sql) => {
+export async function up(sql) {
   await sql`
     INSERT INTO animals ${sql(animals, 'first_name', 'type', 'accessory')}
   `;
-};
+}
 
-exports.down = async (sql) => {
+export async function down(sql) {
   for (const animal of animals) {
     await sql`
       DELETE FROM
@@ -23,4 +23,4 @@ exports.down = async (sql) => {
         accessory = ${animal.accessory}
     `;
   }
-};
+}

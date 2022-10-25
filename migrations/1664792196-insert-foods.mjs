@@ -4,13 +4,13 @@ const foods = [
   { name: 'Cheddar cheese', type: 'Dairy' },
 ];
 
-exports.up = async (sql) => {
+export async function up(sql) {
   await sql`
     INSERT INTO foods ${sql(foods, 'name', 'type')}
   `;
-};
+}
 
-exports.down = async (sql) => {
+export async function down(sql) {
   for (const food of foods) {
     await sql`
       DELETE FROM
@@ -20,4 +20,4 @@ exports.down = async (sql) => {
         type = ${food.type}
     `;
   }
-};
+}

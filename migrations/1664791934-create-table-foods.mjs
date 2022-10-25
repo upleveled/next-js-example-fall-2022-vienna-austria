@@ -1,4 +1,4 @@
-exports.up = async (sql) => {
+export async function up(sql) {
   await sql`
     CREATE TABLE foods (
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -6,10 +6,10 @@ exports.up = async (sql) => {
       type varchar(30) NOT NULL
     )
   `;
-};
+}
 
-exports.down = async (sql) => {
+export async function down(sql) {
   await sql`
     DROP TABLE foods
   `;
-};
+}
