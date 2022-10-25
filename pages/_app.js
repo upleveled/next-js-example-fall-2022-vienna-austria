@@ -1,8 +1,26 @@
 import { css, Global } from '@emotion/react';
+import { useCallback, useEffect, useState } from 'react';
 import CookieBanner from '../components/CookieBanner';
 import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps }) {
+  const [user, setUser] = useState();
+
+  const refreshUserProfile = useCallback(async () => {
+    const profileResponse = await fetch('/api/profile');
+    const profileResponseBody = await profileResponse.json();
+
+    if ('errors' in profileResponseBody) {
+      setUser(undefined);
+    } else {
+      setUser(profileResponseBody.user);
+    }
+  }, []);
+
+  useEffect(() => {
+    refreshUserProfile().catch(() => console.log('fetch api failed'));
+  }, [refreshUserProfile]);
+
   return (
     <>
       <Global
@@ -22,12 +40,12 @@ function MyApp({ Component, pageProps }) {
         `}
       />
       <CookieBanner />
-      <Layout>
+      <Layout user={user}>
         {/*
           The "Component" component refers to
           the current page that is being rendered
         */}
-        <Component {...pageProps} />
+        <Component {...pageProps} refreshUserProfile={refreshUserProfile} />
       </Layout>
     </>
   );

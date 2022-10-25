@@ -1,8 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { createSession } from '../../database/sessions';
 import { getUserWithPasswordHashByUsername } from '../../database/users';
+import { createSerializedRegisterSessionTokenCookie } from '../../utils/cookies';
 
 export type LoginResponseBody =
   | { errors: { message: string }[] }
@@ -45,12 +48,20 @@ export default async function handler(
         .json({ errors: [{ message: 'password is not valid' }] });
     }
 
-    console.log('isValidPassword', isValidPassword);
-    // 4. CREATE SESSION AND CREATE TOKEN
+    // 4.Create a session token and serialize a cookie with the token
+    const session = await createSession(
+      user.id,
+      crypto.randomBytes(80).toString('base64'),
+    );
 
-    // This is the response for any method on this endpoint
+    const serializedCookie = createSerializedRegisterSessionTokenCookie(
+      session.token,
+    );
 
-    response.status(200).json({ user: { username: user.username } });
+    response
+      .status(200)
+      .setHeader('Set-Cookie', serializedCookie)
+      .json({ user: { username: user.username } });
   } else {
     response.status(401).json({ errors: [{ message: 'Method not allowed' }] });
   }

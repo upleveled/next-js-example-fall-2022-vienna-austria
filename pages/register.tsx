@@ -1,10 +1,16 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { getValidSessionByToken } from '../database/sessions';
 import { RegisterResponseBody } from './api/register';
 
-export default function Register() {
+type Props = {
+  refreshUserProfile: () => Promise<void>;
+};
+
+export default function Register(props: Props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
@@ -39,7 +45,10 @@ export default function Register() {
       return await router.push(returnTo);
     }
 
-    await router.push(`/profile/${registerResponseBody.user.username}`);
+    // refresh the user on state
+    await props.refreshUserProfile();
+    // redirect user to user profile
+    await router.push(`/private-profile`);
   }
 
   return (
@@ -91,4 +100,21 @@ export default function Register() {
       </button>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const token = context.req.cookies.sessionToken;
+
+  if (token && (await getValidSessionByToken(token))) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: true,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }

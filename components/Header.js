@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
+import { isPropertySignature } from 'typescript';
 
 const navStyles = css`
   background-color: #ddd;
@@ -19,7 +20,7 @@ const navStyles = css`
   }
 `;
 
-export default function Header() {
+export default function Header(props) {
   return (
     <header>
       <nav css={navStyles}>
@@ -31,6 +32,7 @@ export default function Header() {
           <Link href="/animals-api-frontend">Animal-List FE</Link>
           <Link href="/team">Team Index</Link>
           <Link href="/team/list">Team List</Link>
+          <Link href="/private-profile">private-profile</Link>
 
           {/*
           Using an <a> tag is not best practice for
@@ -40,8 +42,22 @@ export default function Header() {
           <a href="/about">About</a>
         */}
         </div>
-        <Link href="/login">Login</Link>
-        <Link href="/register">Register</Link>
+        {props.user && props.user.username}
+        {props.user ? (
+          <a
+            css={css`
+              margin-left: 10px;
+            `}
+            href="/logout"
+          >
+            Logout
+          </a>
+        ) : (
+          <>
+            <Link href="/login">Login</Link>
+            <Link href="/register">Register</Link>
+          </>
+        )}
       </nav>
     </header>
   );

@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
-import { getUserByUsername, User } from '../../database/users';
+import { getUserBySessionToken, User } from '../database/users';
 
 type Props = {
   user?: User;
@@ -28,19 +28,26 @@ export default function UserProfile(props: Props) {
       </Head>
       <h1>Personal Information</h1>
       id: {props.user.id} username: {props.user.username}
+      <hr />
+      THIS IS NOT FUNCTINAL BUT AN EXAMPLE
+      <br />
+      <button>Delete User</button>
     </>
   );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  // Retrieve the username from the URL
-  const username = context.query.username as string;
+  const token = context.req.cookies.sessionToken;
 
-  const user = await getUserByUsername(username.toLowerCase());
+  const user = token && (await getUserBySessionToken(token));
 
   if (!user) {
-    context.res.statusCode = 404;
-    return { props: {} };
+    return {
+      redirect: {
+        destination: '/login?returnTo=/private-profile',
+        permanent: false,
+      },
+    };
   }
 
   return {
