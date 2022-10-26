@@ -27,7 +27,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
       - name: Install dependencies
         run: yarn
       - run: yarn migrate up
@@ -39,7 +39,6 @@ jobs:
         run: yarn playwright install --with-deps
       - name: Run tests
         run: yarn playwright test
-
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
