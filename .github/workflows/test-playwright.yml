@@ -31,12 +31,13 @@ jobs:
       - name: Install dependencies
         run: yarn
       - run: yarn migrate up
+      # Also generates next-env.d.ts, required for TSC
+      - name: Build localhost
+        run: yarn build
       - name: Run TypeScript Compiler
         run: yarn tsc
       - name: Run ESLint
         run: yarn eslint . --max-warnings 0
-      - name: Build localhost
-        run: yarn build
       - name: Install playwright
         run: yarn playwright install --with-deps
       - name: Run tests
