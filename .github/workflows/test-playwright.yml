@@ -31,6 +31,8 @@ jobs:
       - name: Install dependencies
         run: yarn
       - run: yarn migrate up
+      - name: Run TypeScript Compiler
+        run: yarn tsc
       - name: Run ESLint
         run: yarn eslint . --max-warnings 0
       - name: Build localhost
