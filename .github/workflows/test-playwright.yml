@@ -10,7 +10,6 @@ jobs:
       PGDATABASE: next_js_example_fall_2022
       PGUSERNAME: next_js_example_fall_2022
       PGPASSWORD: next_js_example_fall_2022
-
     steps:
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
@@ -28,8 +27,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
-
+          node-version: '16'
       - name: Install dependencies
         run: yarn
       - name: Install playwright
