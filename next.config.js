@@ -5,6 +5,12 @@ const nextConfig = {
   compiler: {
     emotion: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   // Fix issue with `node:` scheme / prefix
   webpack: (config, { webpack }) => {
     config.plugins.push(
