@@ -1,8 +1,18 @@
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { Fragment, useEffect, useState } from 'react';
-import { Animal } from '../database/animals';
+import { Animal } from '../../database/animals';
+import { getValidSessionByToken } from '../../database/sessions';
+import { createTokenFromSecret } from '../../utils/csrf';
 
-export default function Home() {
+type Props =
+  | {
+      errors: { message: string }[];
+      csrfToken: undefined;
+    }
+  | { csrfToken: string };
+
+export default function AnimalsAdmin(props: Props) {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [firstNameInput, setFirstNameInput] = useState('');
   const [accessoryInput, setAccessoryInput] = useState('');
@@ -29,6 +39,7 @@ export default function Home() {
         firstName: firstNameInput,
         accessory: accessoryInput,
         type: typeInput,
+        csrfToken: props.csrfToken,
       }),
     });
     const animalFromApi = (await response.json()) as Animal;
@@ -44,6 +55,7 @@ export default function Home() {
   async function deleteAnimalFromApiById(id: number) {
     const response = await fetch(`/api/animals/${id}`, {
       method: 'DELETE',
+      body: JSON.stringify({ csrfToken: props.csrfToken }),
     });
     const deletedAnimal = (await response.json()) as Animal;
 
@@ -64,6 +76,7 @@ export default function Home() {
         firstName: firstNameOnEditInput,
         accessory: accessoryOnEditInput,
         type: typeOnEditInput,
+        csrfToken: props.csrfToken,
       }),
     });
     const updatedAnimalFromApi = (await response.json()) as Animal;
@@ -87,6 +100,16 @@ export default function Home() {
       console.log(err);
     });
   }, []);
+
+  if ('errors' in props) {
+    return (
+      <div>
+        {props.errors?.map((error) => {
+          return <div key={error.message}>{error.message}</div>;
+        })}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -198,4 +221,22 @@ export default function Home() {
       })}
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // Retrieve the username from the URL
+  const token = context.req.cookies.sessionToken;
+
+  const session = token && (await getValidSessionByToken(token));
+
+  if (!session) {
+    context.res.statusCode = 401;
+    return { props: { errors: [{ message: 'User not authorized' }] } };
+  }
+
+  const csrfToken = await createTokenFromSecret(session.csrfSecret);
+
+  return {
+    props: { csrfToken },
+  };
 }

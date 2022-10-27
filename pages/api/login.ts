@@ -6,6 +6,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { createSession } from '../../database/sessions';
 import { getUserWithPasswordHashByUsername } from '../../database/users';
 import { createSerializedRegisterSessionTokenCookie } from '../../utils/cookies';
+import { createCsrfSecret } from '../../utils/csrf';
 
 export type LoginResponseBody =
   | { errors: { message: string }[] }
@@ -48,10 +49,13 @@ export default async function handler(
         .json({ errors: [{ message: 'password is not valid' }] });
     }
 
-    // 4.Create a session token and serialize a cookie with the token
+    // 4. create a csrf secret
+    const secret = await createCsrfSecret();
+    // 5.Create a session token and serialize a cookie with the token
     const session = await createSession(
       user.id,
       crypto.randomBytes(80).toString('base64'),
+      secret,
     );
 
     const serializedCookie = createSerializedRegisterSessionTokenCookie(

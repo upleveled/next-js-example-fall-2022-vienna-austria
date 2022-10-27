@@ -61,6 +61,29 @@ export async function getAnimalById(id: number) {
   return animal;
 }
 
+// Get a single animal by id and valid session token
+export async function getAnimalByIdAndValidSessionToken(
+  id: number,
+  token: string | undefined,
+) {
+  if (!token) return undefined;
+  // STRETCH: Update this adding a role to the users and matching it with the session token
+  const [animal] = await sql<Animal[]>`
+    SELECT
+      animals.*
+    FROM
+      animals,
+      sessions
+    WHERE
+      sessions.token = ${token}
+    AND
+      sessions.expiry_timestamp > now()
+    AND
+      animals.id = ${id}
+  `;
+  return animal;
+}
+
 // Alternative method: accept id of undefined
 // // Get a single animal by id
 // export async function getAnimalById(id: number | undefined) {

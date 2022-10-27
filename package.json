@@ -23,6 +23,7 @@
     "@upleveled/eslint-config-upleveled": "^3.0.1",
     "bcrypt": "^5.1.0",
     "cookie": "^0.5.0",
+    "csrf": "^3.1.0",
     "dotenv-cli": "^6.0.0",
     "dotenv-safe": "^8.2.0",
     "js-cookie": "^3.0.1",

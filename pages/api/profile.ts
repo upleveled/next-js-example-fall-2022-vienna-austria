@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getValidSessionByToken } from '../../database/sessions';
 import { getUserBySessionToken } from '../../database/users';
 
 export default async function handler(
@@ -8,18 +9,20 @@ export default async function handler(
   response: NextApiResponse,
 ) {
   if (request.method === 'GET') {
-    // 1. Get the cookie from the request
-    const token = request.cookies.sessionToken;
+    // 1. Get the cookie from the request and use it to validate the session
+    const session =
+      request.cookies.sessionToken &&
+      (await getValidSessionByToken(request.cookies.sessionToken));
 
-    if (!token) {
+    if (!session) {
       response
         .status(400)
-        .json({ errors: [{ message: 'No session token passed' }] });
+        .json({ errors: [{ message: 'No valid session token passed' }] });
       return;
     }
 
     // 2. Get the user from the token
-    const user = await getUserBySessionToken(token);
+    const user = await getUserBySessionToken(session.token);
 
     if (!user) {
       response
