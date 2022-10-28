@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
-import { isPropertySignature } from 'typescript';
 
 const navStyles = css`
   background-color: #ddd;
