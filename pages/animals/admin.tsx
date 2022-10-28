@@ -104,7 +104,7 @@ export default function AnimalsAdmin(props: Props) {
   if ('errors' in props) {
     return (
       <div>
-        {props.errors?.map((error) => {
+        {props.errors.map((error) => {
           return <div key={error.message}>{error.message}</div>;
         })}
       </div>
