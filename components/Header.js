@@ -33,7 +33,7 @@ export default function Header(props) {
           <Link href="/animals">Animals</Link>
           <Link href="/about">About</Link>
           <Link href="/fruits">Fruits</Link>
-          <Link href="/animals/admin">Animals-admin</Link>
+          <Link href="/animals/admin">Animal admin</Link>
           <Link href="/team">Team Index</Link>
           <Link href="/team/list">Team List</Link>
           <Link href="/private-profile">private-profile</Link>
