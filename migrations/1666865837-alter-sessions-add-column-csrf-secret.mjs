@@ -1,7 +1,7 @@
 export async function up(sql) {
   await sql`
     ALTER TABLE sessions
-    ADD csrf_secret varchar;
+    ADD csrf_secret varchar NOT NULL;
   `;
 }
 

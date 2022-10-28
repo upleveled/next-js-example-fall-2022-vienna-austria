@@ -20,7 +20,7 @@ export async function createSession(
   RETURNING
    id,
    token,
-  sessions.csrf_secret
+   csrf_secret
   `;
 
   await deleteExpiredSessions();
@@ -56,7 +56,7 @@ export async function deleteExpiredSessions() {
   RETURNING
     id,
     token,
-    sessions.csrf_secret
+    csrf_secret
   `;
 
   return sessions;
@@ -71,7 +71,7 @@ export async function deleteSessionByToken(token: string) {
   RETURNING
     id,
     token,
-    sessions.csrf_secret
+    csrf_secret
   `;
 
   return session;
