@@ -5,10 +5,8 @@ const createJestConfig = nextJest({
   dir: './',
 });
 
-const customJestConfig = {
+module.exports = createJestConfig({
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testEnvironment: 'jest-environment-jsdom',
   testPathIgnorePatterns: ['<rootDir>/playwright/'],
-};
-
-module.exports = createJestConfig(customJestConfig);
+});
