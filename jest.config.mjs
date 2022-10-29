@@ -5,7 +5,7 @@ const createJestConfig = nextJest({
   dir: './',
 });
 
-module.exports = createJestConfig({
+export default createJestConfig({
   testEnvironment: 'jest-environment-jsdom',
   testPathIgnorePatterns: ['<rootDir>/playwright/'],
 });
