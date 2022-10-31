@@ -1,4 +1,4 @@
-name: Playwright Tests / Deploy to Fly.io
+name: Test and Deploy
 on: push
 
 jobs:
