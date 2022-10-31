@@ -1,4 +1,4 @@
-name: Test and Deploy
+name: Playwright Tests, Deploy
 on: push
 
 jobs:
