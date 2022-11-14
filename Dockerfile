@@ -15,6 +15,7 @@ RUN yarn build
 # Initialize production layer
 FROM node:18-alpine AS runner
 # Install necessary tools
+ENV NODE_ENV production
 RUN apk add bash postgresql
 WORKDIR /app
 
