@@ -26,9 +26,7 @@ export async function getUserWithPasswordHashByUsername(username: string) {
   if (!username) return undefined;
 
   const [user] = await sql<User[]>`
-  SELECT
-    *
-  FROM
+  SELECT * FROM
     users
   WHERE
     users.username = ${username}
