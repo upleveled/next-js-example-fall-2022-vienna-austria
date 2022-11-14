@@ -51,9 +51,7 @@ export async function getAnimals() {
 // Get a single animal by id
 export async function getAnimalById(id: number) {
   const [animal] = await sql<Animal[]>`
-    SELECT
-      *
-    FROM
+    SELECT * FROM
       animals
     WHERE
       id = ${id}
