@@ -4788,10 +4788,10 @@ ley@^0.8.1:
     sade "^1.7.0"
     totalist "^2.0.0"
 
-libpg-query@13.2.5:
-  version "13.2.5"
-  resolved "https://registry.yarnpkg.com/libpg-query/-/libpg-query-13.2.5.tgz#f3d93f21b64caa904e67bbad767b7f039b951c87"
-  integrity sha512-Y0IHcZyxbX4WHwWNa5KFDufYSiVIb+uPyZQDdom1ODxCfqko/ubLj+rzHeSDeaRRsEzgKc22x/jBRka7BMT2vQ==
+libpg-query@13.3.0:
+  version "13.3.0"
+  resolved "https://registry.yarnpkg.com/libpg-query/-/libpg-query-13.3.0.tgz#c362285373c17619cc775870c0a36aed963fd149"
+  integrity sha512-9PKW8iRWnSCw+IW5LlZYq+bLMmAhKsAIR2en8iRYnoRLBg4x+HKHBb+PQyqFy8+jC7AmzV65A+DsUO7tiZddEQ==
   dependencies:
     "@mapbox/node-pre-gyp" "^1.0.8"
     node-addon-api "^1.6.3"
