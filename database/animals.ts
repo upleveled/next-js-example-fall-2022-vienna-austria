@@ -87,7 +87,9 @@ export async function getAnimalByIdAndValidSessionToken(
 // export async function getAnimalById(id: number | undefined) {
 //   if (!id) return undefined;
 //   const [animal] = await sql<Animal[]>`
-//     SELECT * FROM
+//     SELECT
+//       *
+//     FROM
 //       animals
 //     WHERE
 //       id = ${id}
