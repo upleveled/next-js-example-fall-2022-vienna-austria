@@ -73,12 +73,12 @@ export async function getAnimalByIdAndValidSessionToken(
       animals.*
     FROM
       animals,
-      sessions
+    INNER JOIN
+      sessions ON(
+        sessions.token = ${token} AND
+        sessions.expiry_timestamp > now()
+      )
     WHERE
-      sessions.token = ${token}
-    AND
-      sessions.expiry_timestamp > now()
-    AND
       animals.id = ${id}
   `;
   return animal;
