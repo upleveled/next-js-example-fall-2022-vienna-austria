@@ -4788,10 +4788,10 @@ ley@^0.8.1:
     sade "^1.7.0"
     totalist "^2.0.0"
 
-libpg-query@13.2.5:
-  version "13.2.5"
-  resolved "https://registry.yarnpkg.com/libpg-query/-/libpg-query-13.2.5.tgz#f3d93f21b64caa904e67bbad767b7f039b951c87"
-  integrity sha512-Y0IHcZyxbX4WHwWNa5KFDufYSiVIb+uPyZQDdom1ODxCfqko/ubLj+rzHeSDeaRRsEzgKc22x/jBRka7BMT2vQ==
+libpg-query@^13.3.0:
+  version "13.3.0"
+  resolved "https://registry.yarnpkg.com/libpg-query/-/libpg-query-13.3.0.tgz#c362285373c17619cc775870c0a36aed963fd149"
+  integrity sha512-9PKW8iRWnSCw+IW5LlZYq+bLMmAhKsAIR2en8iRYnoRLBg4x+HKHBb+PQyqFy8+jC7AmzV65A+DsUO7tiZddEQ==
   dependencies:
     "@mapbox/node-pre-gyp" "^1.0.8"
     node-addon-api "^1.6.3"
@@ -6179,7 +6179,19 @@ tar-stream@^2.1.4:
     inherits "^2.0.3"
     readable-stream "^3.1.1"
 
-tar@^6.0.2, tar@^6.1.11, tar@^6.1.2:
+tar@^6.0.2, tar@^6.1.2:
+  version "6.1.12"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.12.tgz#3b742fb05669b55671fb769ab67a7791ea1a62e6"
+  integrity sha512-jU4TdemS31uABHd+Lt5WEYJuzn+TJTCBLljvIAHZOz6M9Os5pJ4dD+vRFLxPa/n3T0iEFzpi+0x1UfuDZYbRMw==
+  dependencies:
+    chownr "^2.0.0"
+    fs-minipass "^2.0.0"
+    minipass "^3.0.0"
+    minizlib "^2.1.1"
+    mkdirp "^1.0.3"
+    yallist "^4.0.0"
+
+tar@^6.1.11:
   version "6.1.11"
   resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.11.tgz#6760a38f003afa1b2ffd0ffe9e9abbd0eab3d621"
   integrity sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==
