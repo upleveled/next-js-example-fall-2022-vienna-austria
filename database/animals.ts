@@ -48,6 +48,18 @@ export async function getAnimals() {
   return animals;
 }
 
+// Get all animals limiting the number of results
+export async function getAnimalsWithLimit(limit: number) {
+  const animals = await sql<Animal[]>`
+    SELECT
+      *
+    FROM
+      animals
+    LIMIT ${limit}
+  `;
+  return animals;
+}
+
 // Get a single animal by id
 export async function getAnimalById(id: number) {
   const [animal] = await sql<Animal[]>`

@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { Fragment, useState } from 'react';
-import { Animal, getAnimals } from '../../database/animals';
+import { Animal, getAnimalsWithLimit } from '../../database/animals';
 import { getValidSessionByToken } from '../../database/sessions';
 import { createTokenFromSecret } from '../../utils/csrf';
 
@@ -14,7 +14,8 @@ type Props =
   | { csrfToken: string; animals: Animal[] };
 
 export default function AnimalsAdmin(props: Props) {
-  const [animals, setAnimals] = useState(props.animals);
+  const [animals, setAnimals] = useState(props.animals || []);
+
   const [firstNameInput, setFirstNameInput] = useState('');
   const [accessoryInput, setAccessoryInput] = useState('');
   const [typeInput, setTypeInput] = useState('');
@@ -59,7 +60,7 @@ export default function AnimalsAdmin(props: Props) {
     // TODO handle the error when animal from api is undefined
     // you can check if animalFromApi contains an error and display the error in the front end
 
-    const newState = [...animals!, animalFromApi];
+    const newState = [...animals, animalFromApi];
 
     setAnimals(newState);
   }
@@ -71,7 +72,7 @@ export default function AnimalsAdmin(props: Props) {
     });
     const deletedAnimal = (await response.json()) as Animal;
 
-    const filteredAnimals = animals!.filter((animal) => {
+    const filteredAnimals = animals.filter((animal) => {
       return animal.id !== deletedAnimal.id;
     });
 
@@ -96,7 +97,7 @@ export default function AnimalsAdmin(props: Props) {
     // TODO handle the error when animal from api is undefined
     // you can check if animalFromApi contains an error and display the error in the front end
 
-    const newState = animals!.map((animal) => {
+    const newState = animals.map((animal) => {
       if (animal.id === updatedAnimalFromApi.id) {
         return updatedAnimalFromApi;
       } else {
@@ -158,7 +159,7 @@ export default function AnimalsAdmin(props: Props) {
 
       <hr />
 
-      {animals!.map((animal) => {
+      {animals.map((animal) => {
         const isAnimalOnEdit = onEditId === animal.id;
 
         return (
@@ -215,7 +216,7 @@ export default function AnimalsAdmin(props: Props) {
           </Fragment>
         );
       })}
-      {animals!.length < 4 && (
+      {animals.length < 4 && (
         <button onClick={() => getAnimalsFromApi()}>show more than 3</button>
       )}
     </>
@@ -235,12 +236,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const csrfToken = await createTokenFromSecret(session.csrfSecret);
 
-  const initialAnimalsList = await getAnimals();
+  const initialAnimalsList = await getAnimalsWithLimit(3);
 
   return {
     props: {
       csrfToken,
-      animals: initialAnimalsList.filter((x, index) => index < 3),
+      animals: initialAnimalsList,
     },
   };
 }
