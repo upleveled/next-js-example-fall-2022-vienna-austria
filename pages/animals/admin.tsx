@@ -15,7 +15,6 @@ type Props =
 
 export default function AnimalsAdmin(props: Props) {
   const [animals, setAnimals] = useState(props.animals || []);
-
   const [firstNameInput, setFirstNameInput] = useState('');
   const [accessoryInput, setAccessoryInput] = useState('');
   const [typeInput, setTypeInput] = useState('');
