@@ -29,8 +29,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - name: Install dependencies
-        run: yarn
+      - name: Install dependencies (with cache)
+        uses: bahmutov/npm-install@v1
       - run: yarn migrate up
       # Also generates next-env.d.ts, required for tsc
       - name: Build localhost
