@@ -39,7 +39,7 @@ jobs:
         run: yarn tsc
       - name: Run ESLint
         run: yarn eslint . --max-warnings 0
-      - name: Install playwright
+      - name: Install Playwright
         run: yarn playwright install --with-deps
       - name: Run tests
         run: yarn playwright test
