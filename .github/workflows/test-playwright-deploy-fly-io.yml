@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: yarn
       - run: yarn migrate up
-      # Also generates next-env.d.ts, required for TSC
+      # Also generates next-env.d.ts, required for tsc
       - name: Build localhost
         run: yarn build
       - name: Run TypeScript Compiler
