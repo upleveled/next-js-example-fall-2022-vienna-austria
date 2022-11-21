@@ -1,4 +1,4 @@
-# Set the OS with Node.js
+# Initialize builder layer
 FROM node:18-alpine AS builder
 ENV NODE_ENV production
 # Install necessary tools
@@ -10,7 +10,7 @@ RUN yq --inplace --output-format=json '.dependencies = .dependencies * (.devDepe
 RUN yarn install --frozen-lockfile
 RUN yarn build
 
-# Initialize production layer
+# Initialize runner layer
 FROM node:18-alpine AS runner
 ENV NODE_ENV production
 # Install necessary tools
