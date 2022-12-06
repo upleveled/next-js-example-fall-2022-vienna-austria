@@ -2,7 +2,7 @@
 FROM node:18-alpine AS builder
 ENV NODE_ENV production
 # Install necessary tools
-RUN apk add --no-cache libc6-compat yq --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+RUN apk add --no-cache libc6-compat yq --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 WORKDIR /app
 # Copy the content of the project to the machine
 COPY . .
