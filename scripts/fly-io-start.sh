@@ -6,7 +6,7 @@ set -o errexit
 # Set volume path for use in PostgreSQL paths if volume directory exists
 [ -d "../postgres-volume" ] && VOLUME_PATH=/postgres-volume
 
-# Create and add permissions to folders for PostgreSQL
+echo "Creating folders for PostgreSQL and adding permissions for postgres user..."
 mkdir -p $VOLUME_PATH/run/postgresql/data/
 chown postgres:postgres $VOLUME_PATH/run/postgresql/ $VOLUME_PATH/run/postgresql/data/
 
@@ -16,9 +16,11 @@ chown postgres:postgres $VOLUME_PATH/run/postgresql/ $VOLUME_PATH/run/postgresql
 # 1. First deployment of an app with a volume
 # 2. Every deployment of an app without a volume
 if [[ -f $VOLUME_PATH/run/postgresql/data/postgresql.conf ]]; then
-  # Restart database
+  echo "PostgreSQL config file exists, restarting database..."
   su postgres -c "pg_ctl restart -D /postgres-volume/run/postgresql/data/"
 else
+  echo "PostgreSQL config file doesn't exist, initializing database..."
+
   # Initialize a database in the data directory
   su postgres -c "initdb -D $VOLUME_PATH/run/postgresql/data/"
 
