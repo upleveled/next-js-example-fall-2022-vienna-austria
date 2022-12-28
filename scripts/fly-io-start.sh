@@ -42,7 +42,7 @@ else
 SQL
 fi
 
-echo $PGDATABASE
-echo $PGUSERNAME
-yarn migrate up
+# echo $PGDATABASE
+# echo $PGUSERNAME
+# yarn migrate up
 yarn start
