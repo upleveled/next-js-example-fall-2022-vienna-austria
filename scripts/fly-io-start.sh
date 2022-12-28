@@ -31,9 +31,13 @@ else
   # Start database
   su postgres -c "pg_ctl start -D $VOLUME_PATH/run/postgresql/data/"
 
-  # Create user and database with credentials from Fly.io secrets
-  psql -U postgres postgres --command="CREATE USER $PGUSERNAME PASSWORD '$PGPASSWORD'"
-  createdb -U postgres --owner=$PGUSERNAME $PGDATABASE
+  # Create database and user with credentials from Fly.io secrets
+  psql -U postgres postgres << SQL
+    CREATE DATABASE $PGDATABASE;
+    CREATE USER $PGUSERNAME WITH ENCRYPTED PASSWORD '$PGPASSWORD';
+    GRANT ALL PRIVILEGES ON DATABASE $PGDATABASE TO $PGUSERNAME;
+    CREATE SCHEMA $PGUSERNAME AUTHORIZATION $PGUSERNAME;
+  SQL
 fi
 
 yarn migrate up
