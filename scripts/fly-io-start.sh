@@ -10,14 +10,15 @@ echo "Creating folders for PostgreSQL and adding permissions for postgres user..
 mkdir -p $VOLUME_PATH/run/postgresql/data/
 chown postgres:postgres $VOLUME_PATH/run/postgresql/ $VOLUME_PATH/run/postgresql/data/
 
-# If PostgreSQL config file exists, restart database. Otherwise, initialize, configure and create user and database.
+# If PostgreSQL config file exists, start database. Otherwise, initialize, configure and create user and database.
 #
 # Config file doesn't exist during:
 # 1. First deployment of an app with a volume
 # 2. Every deployment of an app without a volume
+#
 if [[ -f $VOLUME_PATH/run/postgresql/data/postgresql.conf ]]; then
-  echo "PostgreSQL config file exists, restarting database..."
-  su postgres -c "pg_ctl restart -D /postgres-volume/run/postgresql/data/"
+  echo "PostgreSQL config file exists, starting database..."
+  su postgres -c "pg_ctl start -D /postgres-volume/run/postgresql/data/"
 else
   echo "PostgreSQL config file doesn't exist, initializing database..."
 
